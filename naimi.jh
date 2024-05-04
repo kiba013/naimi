@@ -5,6 +5,9 @@ application {
     packageName com.app.naimi
     serverPort 8050
     buildTool maven
+   	authenticationType jwt
+    prodDatabaseType postgresql
+    clientFramework angularX
   }
   entities *
   dto * with mapstruct
