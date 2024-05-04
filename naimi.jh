@@ -1,0 +1,87 @@
+application {
+  config {
+    baseName Naimi
+    applicationType monolith
+    packageName com.app.naimi
+    serverPort 8050
+    buildTool maven
+  }
+  entities *
+  dto * with mapstruct
+}
+enum Status{
+	DOING
+}
+entity AppUser {
+  id Long
+  firstName String
+  lastName String
+  middleName String
+  email String
+  phone String
+  password String
+  rating Double
+
+}
+entity AppRole {
+  id Long,
+  name String
+}
+entity Application {
+  id Long,
+  name String,
+  address String,
+  day LocalDate,
+  time LocalDate,
+  phone String,
+  createdDate ZonedDateTime,
+}
+
+entity Response {
+  id Long,
+  message String,
+  status String // TODO Enum
+  createdDate ZonedDateTime
+}
+entity Specialization {
+  id Long,
+  name String,
+  createdDate ZonedDateTime
+}
+entity ApplicationCategory {
+  id Long,
+  name String
+}
+entity MediaFiles {
+  id Long
+  name String
+  originalName String
+  createdDate ZonedDateTime
+  path String
+}
+entity Review {
+  id Long
+  text String
+  assessment Double
+}
+entity Favourites {
+  id Long
+}
+
+relationship ManyToOne {
+  AppUser to AppRole
+  AppUser to Response
+  AppUser to Application
+  Application to Response
+  ApplicationCategory to Application
+  Favourites to Application
+  Favourites to Specialization
+}
+
+relationship OneToOne {
+  AppUser {avatar} to MediaFiles
+  AppUser to Favourites
+}
+relationship ManyToMany {
+  AppUser to Specialization
+}
